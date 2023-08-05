@@ -22,7 +22,7 @@ const years = [
 const stats = []
 
 app.get('/', (req, res) => {
-    res.json('Welcome to my Power ball API that scrapes teh web for drawing results')
+    res.json('Welcome to my Power ball API that scrapes the web for drawing results')
 })
 
 app.get('/:yearId', (req, res) => {
