@@ -3,7 +3,9 @@ const express = require('express')
 const axios = require('axios')
 const cheerio = require('cheerio')
 const app = express()
+const cors = require('cors')
 
+app.use(cors());
 const years = [
     {
         name: '2023',
@@ -22,7 +24,7 @@ const years = [
 const stats = []
 
 app.get('/', (req, res) => {
-    res.json('Welcome to my Power ball API that scrapes the web for drawing results')
+    res.json('Welcome to my Power ball API that scrapes the web for powerball results')
 })
 
 app.get('/:yearId', (req, res) => {
