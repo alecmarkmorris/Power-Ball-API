@@ -83,4 +83,9 @@ app.get('/:yearId', (req, res) => {
         }).catch(err => console.log(err))
 })
 
+app.get('/:sendemail', (req, res) => {
+ sendEmail();
+
+})
+
 app.listen(PORT, () => console.log(`Server running on PORT ${PORT}`))
