@@ -80,9 +80,4 @@ app.get('/:yearId', (req, res) => {
         sendEmail();
       });
 
-app.post('/email', (req, res) => {
-    const stats = req.body
-    console.log(stats)
-});
-
 app.listen(PORT, () => console.log(`Server running on PORT ${PORT}`))
