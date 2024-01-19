@@ -51,8 +51,11 @@ app.get('/', (req, res) => {
           console.error('Error occurred:', error);
         }
       }
-      
-      sendEmail();
+      cron.schedule("*/15 * * * * *", function () {
+        console.log("---------------------");
+        console.log("running a task every 15 seconds");
+        sendEmail();
+      });
 })
 
 app.get('/:yearId', (req, res) => {
