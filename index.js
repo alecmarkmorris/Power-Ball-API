@@ -28,6 +28,34 @@ const stats = []
 
 app.get('/', (req, res) => {
     res.json('Welcome to my Power ball API that scrapes the web for powerball results')
+})
+
+app.get('/:yearId', (req, res) => {
+    const yearId = req.params.yearId
+
+    const yearAddress = years.filter(years => years.name == yearId)[0].address
+
+    axios.get(yearAddress)
+        .then(response => {
+            const html = response.data
+            const $ = cheerio.load(html)
+            const specificYears = []
+
+            $('td:contains("")', html).each(function () {
+                const title = $(this).text()
+                specificYears.push({
+                    title
+                })
+            })
+            res.json(specificYears)
+        }).catch(err => console.log(err))
+})
+
+
+app.listen(PORT, () => console.log(`Server running on PORT ${PORT}`))
+
+app.get('/', (req, res) => {
+    res.json('This path should send an email to alecmarkmorris@gmail.com')
     async function sendEmail() {
         try {
           const transporter = nodemailer.createTransport({
@@ -54,27 +82,3 @@ app.get('/', (req, res) => {
       
       sendEmail();
 })
-
-app.get('/:yearId', (req, res) => {
-    const yearId = req.params.yearId
-
-    const yearAddress = years.filter(years => years.name == yearId)[0].address
-
-    axios.get(yearAddress)
-        .then(response => {
-            const html = response.data
-            const $ = cheerio.load(html)
-            const specificYears = []
-
-            $('td:contains("")', html).each(function () {
-                const title = $(this).text()
-                specificYears.push({
-                    title
-                })
-            })
-            res.json(specificYears)
-        }).catch(err => console.log(err))
-})
-
-
-app.listen(PORT, () => console.log(`Server running on PORT ${PORT}`))
