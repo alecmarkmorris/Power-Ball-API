@@ -4,6 +4,41 @@ const axios = require('axios')
 const cheerio = require('cheerio')
 const app = express()
 const cors = require('cors')
+const cron = require("node-cron");
+
+cron.schedule("0 4 * * *", function () {
+    console.log("---------------------");
+    console.log("running a task every 15 seconds");
+    const nodemailer = require('nodemailer');
+
+async function sendEmail() {
+  try {
+    const transporter = nodemailer.createTransport({
+      service: 'Gmail',
+      auth: {
+        user: 'alecmarkmorris@gmail.com',
+        pass: 'hnebxzalnffmitav'
+      }
+    });
+
+    const mailOptions = {
+      from: 'alecmarkmorris@gmail.com',
+      to: 'alecmarkmorris@example.com',
+      subject: 'Good Morning',
+      text: 'This is a Test Email and should be sent at 8am to check your weight'
+    };
+
+    const info = await transporter.sendMail(mailOptions);
+    console.log('Email sent:', info.messageId);
+  } catch (error) {
+    console.error('Error occurred:', error);
+  }
+}
+
+sendEmail(); }, {
+    scheduled: true,
+    timezone: "America/Sao_Paulo"
+  });
 
 app.use(cors());
 const years = [
