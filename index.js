@@ -52,9 +52,7 @@ app.get('/:yearId', (req, res) => {
 })
 
 
-app.listen(PORT, () => console.log(`Server running on PORT ${PORT}`))
-
-app.get('/', (req, res) => {
+app.get('/sendemail', (req, res) => {
     res.json('This path should send an email to alecmarkmorris@gmail.com')
     async function sendEmail() {
         try {
@@ -82,3 +80,5 @@ app.get('/', (req, res) => {
       
       sendEmail();
 })
+
+app.listen(PORT, () => console.log(`Server running on PORT ${PORT}`))
