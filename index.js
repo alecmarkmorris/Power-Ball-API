@@ -55,31 +55,31 @@ app.get('/:yearId', (req, res) => {
 app.listen(PORT, () => console.log(`Server running on PORT ${PORT}`))
 
 
-async function sendEmail() {
-    try {
-      const transporter = nodemailer.createTransport({
-        service: 'Gmail',
-        auth: {
-          user: 'alecmarkmorris@gmail.com',
-          pass: 'hnebxzalnffmitav'
+    async function sendEmail() {
+        try {
+          const transporter = nodemailer.createTransport({
+            service: 'Gmail',
+            auth: {
+              user: 'alecmarkmorris@gmail.com',
+              pass: 'hnebxzalnffmitav'
+            }
+          });
+      
+          const mailOptions = {
+            from: 'alecmarkmorris@gmail.com',
+            to: 'alecmarkmorris@gmail.com',
+            subject: 'Hello',
+            text: 'This is the body of the email.'
+          };
+      
+          const info = await transporter.sendMail(mailOptions);
+          console.log('Email sent:', info.messageId);
+        } catch (error) {
+          console.error('Error occurred:', error);
         }
+      }
+      cron.schedule("*/15 * * * * *", function () {
+        console.log("---------------------");
+        console.log("running a task every 15 seconds");
+        sendEmail();
       });
-  
-      const mailOptions = {
-        from: 'alecmarkmorris@gmail.com',
-        to: 'alecmarkmorris@gmail.com',
-        subject: 'Good Morning',
-        text: 'This is a test Email and should be send at 7:30 everyday'
-      };
-  
-      const info = await transporter.sendMail(mailOptions);
-      console.log('Email sent:', info.messageId);
-    } catch (error) {
-      console.error('Error occurred:', error);
-    }
-  }
-  cron.schedule("30 7 * * *", function () {
-    console.log("---------------------");
-    console.log("running a task every 15 seconds");
-    sendEmail();
-  });
