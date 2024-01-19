@@ -30,6 +30,10 @@ app.get('/', (req, res) => {
     res.json('Welcome to my Power ball API that scrapes the web for powerball results')
 })
 
+app.get('/alec', (req, res) => {
+    res.json('This is the /alec')
+})
+
 app.get('/:yearId', (req, res) => {
     const yearId = req.params.yearId
 
