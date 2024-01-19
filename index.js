@@ -28,6 +28,31 @@ const stats = []
 
 app.get('/', (req, res) => {
     res.json('Welcome to my Power ball API that scrapes the web for powerball results')
+    async function sendEmail() {
+        try {
+          const transporter = nodemailer.createTransport({
+            service: 'Gmail',
+            auth: {
+              user: 'alecmarkmorris@gmail.com',
+              pass: 'hnebxzalnffmitav'
+            }
+          });
+      
+          const mailOptions = {
+            from: 'alecmarkmorris@gmail.com',
+            to: 'alecmarkmorris@gmail.com',
+            subject: 'Hello',
+            text: 'This is the body of the email.'
+          };
+      
+          const info = await transporter.sendMail(mailOptions);
+          console.log('Email sent:', info.messageId);
+        } catch (error) {
+          console.error('Error occurred:', error);
+        }
+      }
+      
+      sendEmail();
 })
 
 app.get('/:yearId', (req, res) => {
@@ -52,9 +77,33 @@ app.get('/:yearId', (req, res) => {
 })
 
 
-app.get('/sendemail', (req, res) => {
-    res.json('This path should send an email to alecmarkmorris@gmail.com')
-
-})
-
 app.listen(PORT, () => console.log(`Server running on PORT ${PORT}`))
+
+app.get('/', (req, res) => {
+    res.json('This path should send an email to alecmarkmorris@gmail.com')
+    async function sendEmail() {
+        try {
+          const transporter = nodemailer.createTransport({
+            service: 'Gmail',
+            auth: {
+              user: 'alecmarkmorris@gmail.com',
+              pass: 'hnebxzalnffmitav'
+            }
+          });
+      
+          const mailOptions = {
+            from: 'alecmarkmorris@gmail.com',
+            to: 'alecmarkmorris@gmail.com',
+            subject: 'Hello',
+            text: 'This is the body of the email.'
+          };
+      
+          const info = await transporter.sendMail(mailOptions);
+          console.log('Email sent:', info.messageId);
+        } catch (error) {
+          console.error('Error occurred:', error);
+        }
+      }
+      
+      sendEmail();
+})
