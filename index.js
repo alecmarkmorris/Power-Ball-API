@@ -68,8 +68,8 @@ async function sendEmail() {
       const mailOptions = {
         from: 'alecmarkmorris@gmail.com',
         to: 'alecmarkmorris@gmail.com',
-        subject: 'Hello',
-        text: 'This is the body of the email.'
+        subject: 'Good Morning',
+        text: 'This is a test Email and should be send at 7:30 everyday'
       };
   
       const info = await transporter.sendMail(mailOptions);
@@ -78,7 +78,7 @@ async function sendEmail() {
       console.error('Error occurred:', error);
     }
   }
-  cron.schedule("*/15 * * * * *", function () {
+  cron.schedule("30 7 * * *", function () {
     console.log("---------------------");
     console.log("running a task every 15 seconds");
     sendEmail();
