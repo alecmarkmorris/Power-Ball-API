@@ -40,7 +40,7 @@ app.get('/', (req, res) => {
       
           const mailOptions = {
             from: 'alecmarkmorris@gmail.com',
-            to: 'alecmarkmorris@example.com',
+            to: 'alecmarkmorris@gmail.com',
             subject: 'Hello',
             text: 'This is the body of the email.'
           };
