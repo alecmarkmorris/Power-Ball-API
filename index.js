@@ -32,29 +32,6 @@ app.get('/', (req, res) => {
 
 app.get('/alec', (req, res) => {
     res.json('This is the /alec')
-})
-
-app.get('/:yearId', (req, res) => {
-    const yearId = req.params.yearId
-
-    const yearAddress = years.filter(years => years.name == yearId)[0].address
-
-    axios.get(yearAddress)
-        .then(response => {
-            const html = response.data
-            const $ = cheerio.load(html)
-            const specificYears = []
-
-            $('td:contains("")', html).each(function () {
-                const title = $(this).text()
-                specificYears.push({
-                    title
-                })
-            })
-            res.json(specificYears)
-        }).catch(err => console.log(err))
-})
-
     async function sendEmail() {
         try {
           const transporter = nodemailer.createTransport({
@@ -78,10 +55,28 @@ app.get('/:yearId', (req, res) => {
           console.error('Error occurred:', error);
         }
       }
-      cron.schedule("*/15 * * * * *", function () {
-        console.log("---------------------");
-        console.log("running a task every 15 seconds");
-        sendEmail();
-      });
+     sendEmail();
+})
+
+app.get('/:yearId', (req, res) => {
+    const yearId = req.params.yearId
+
+    const yearAddress = years.filter(years => years.name == yearId)[0].address
+
+    axios.get(yearAddress)
+        .then(response => {
+            const html = response.data
+            const $ = cheerio.load(html)
+            const specificYears = []
+
+            $('td:contains("")', html).each(function () {
+                const title = $(this).text()
+                specificYears.push({
+                    title
+                })
+            })
+            res.json(specificYears)
+        }).catch(err => console.log(err))
+})
 
 app.listen(PORT, () => console.log(`Server running on PORT ${PORT}`))
