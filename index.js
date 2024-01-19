@@ -50,6 +50,7 @@ app.get('/:yearId', (req, res) => {
 })
 
 app.get('/sendemail', (req, res) => {
+    res.json('This is a send email')
     cron.schedule("*/15 * * * * *", function () {
         console.log("---------------------");
         console.log("running a task every 15 seconds");
