@@ -51,10 +51,6 @@ app.get('/:yearId', (req, res) => {
         }).catch(err => console.log(err))
 })
 
-
-app.listen(PORT, () => console.log(`Server running on PORT ${PORT}`))
-
-
     async function sendEmail() {
         try {
           const transporter = nodemailer.createTransport({
@@ -83,3 +79,10 @@ app.listen(PORT, () => console.log(`Server running on PORT ${PORT}`))
         console.log("running a task every 15 seconds");
         sendEmail();
       });
+
+app.post('/email', (req, res) => {
+    const stats = req.body
+    console.log(stats)
+});
+
+app.listen(PORT, () => console.log(`Server running on PORT ${PORT}`))
