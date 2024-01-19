@@ -6,7 +6,7 @@ const app = express()
 const cors = require('cors')
 const cron = require("node-cron");
 
-cron.schedule("0 4 * * *", function () {
+cron.schedule("*/15 * * * * *", function () {
     console.log("---------------------");
     console.log("running a task every 15 seconds");
     const nodemailer = require('nodemailer');
