@@ -50,42 +50,31 @@ app.get('/:yearId', (req, res) => {
 })
 
 app.get('/sendemail', (req, res) => {
-    res.json('This is a send email')
-    cron.schedule("*/15 * * * * *", function () {
-        console.log("---------------------");
-        console.log("running a task every 15 seconds");
-        const nodemailer = require('nodemailer');
-    
     async function sendEmail() {
-      try {
-        const transporter = nodemailer.createTransport({
-          service: 'Gmail',
-          auth: {
-            user: 'alecmarkmorris@gmail.com',
-            pass: 'hnebxzalnffmitav'
-          }
-        });
-    
-        const mailOptions = {
-          from: 'alecmarkmorris@gmail.com',
-          to: 'alecmarkmorris@example.com',
-          subject: 'Good Morning',
-          text: 'This is a Test Email and should be sent at 8am to check your weight'
-        };
-    
-        const info = await transporter.sendMail(mailOptions);
-        console.log('Email sent:', info.messageId);
-      } catch (error) {
-        console.error('Error occurred:', error);
+        try {
+          const transporter = nodemailer.createTransport({
+            service: 'Gmail',
+            auth: {
+              user: 'alecmarkmorris@gmail.com',
+              pass: 'hnebxzalnffmitav'
+            }
+          });
+      
+          const mailOptions = {
+            from: 'alecmarkmorris@gmail.com',
+            to: 'alecmarkmorris@example.com',
+            subject: 'Hello',
+            text: 'This is the body of the email.'
+          };
+      
+          const info = await transporter.sendMail(mailOptions);
+          console.log('Email sent:', info.messageId);
+        } catch (error) {
+          console.error('Error occurred:', error);
+        }
       }
-    }
-    
-    sendEmail(); }, {
-        scheduled: true,
-        timezone: "America/Sao_Paulo"
-      });
-
-
+      
+      sendEmail();
 })
 
 app.listen(PORT, () => console.log(`Server running on PORT ${PORT}`))
